@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"regexp"
 
@@ -12,6 +14,20 @@ const (
 	URLBase = "https://www.packtpub.com/"
 	URLFree = "https://www.packtpub.com/packt/offers/free-learning"
 )
+
+// getBody is get []byte body
+func getBody() ([]byte, error) {
+	resp, err := http.Get(packtPubBaseURL)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
 
 // GetURL get Free Book URL
 func GetURL() (retUrl string, retErr error) {
