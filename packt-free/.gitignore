@@ -1,0 +1,5 @@
+/cmd/config/mailgun.json
+/cmd/config/recipients.json
+/cmd/log/packtFree.log
+/cmd/book.json
+/cmd/packtFree
