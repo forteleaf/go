@@ -26,7 +26,7 @@ func GetURL() (retUrl string, retErr error) {
 
 func main() {
 	url, _ := GetURL()
-	fmt.Println("url" + url)
+	fmt.Println(URLBase + url)
 
 	// // Parse + String preserve the original encoding.
 	// resp, err := http.Get("http://www.packtpub.com/packt/offers/free-learning")
