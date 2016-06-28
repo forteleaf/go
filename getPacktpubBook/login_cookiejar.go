@@ -27,7 +27,7 @@ func main() {
 
 	client := &http.Client{Jar: cookieJar}
 
-	req, _ := http.NewRequest("POST", packtPubBaseURL, bytes.NewBufferString(userinfo.Encode()))
+	req, _ := http.NewRequest("POST", "packtPubFreeURL", bytes.NewBufferString(userinfo.Encode()))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	//header 를 하니까 cookie 가 제대로 생성된다.
 
@@ -35,13 +35,13 @@ func main() {
 	res, _ := client.Do(req)
 	if res.StatusCode == 200 {
 		fmt.Println("200 접속 성공")
-		fmt.Println("cookie 확인", res.Cookies())
+		fmt.Println("cookie 확인", cookieJar)
 	}
-	fmt.Println(cookieJar.Cookies(u))
 	// https://www.packtpub.com/freelearning-claim/25854/21478
-	resp, _ := client.Get("https://www.packtpub.com/freelearning-claim/25854/21478")
+	//resp, _ := client.Get("https://www.packtpub.com/freelearning-claim/25854/21478")
+	client.CheckRedirect(req, res)
 	fmt.Println(resp.StatusCode)
-	// https://www.packtpub.com/freelearning-claim/25854/21478
+
 	// client.Head("https://www.packtpub.com/freelearning-claim/25854/21478")
 	// client.PostForm("https://www.packtpub.com/freelearning-claim/25854/21478", userinfo)
 	// res, _ := http.PostForm(packtPubBaseURL, userinfo)
