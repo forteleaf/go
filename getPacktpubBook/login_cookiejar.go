@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
@@ -32,15 +31,11 @@ func main() {
 	//header 를 하니까 cookie 가 제대로 생성된다.
 
 	// body io.reader
-	res, _ := client.Do(req)
-	if res.StatusCode == 200 {
-		fmt.Println("200 접속 성공")
-		fmt.Println("cookie 확인", cookieJar)
-	}
-	// https://www.packtpub.com/freelearning-claim/25854/21478
+	client.Do(req)
+	client.PostForm("https://www.packtpub.com/freelearning-claim/19350/21478", userinfo)
+	// Getting Started with Electronic Projects
+	// https://www.packtpub.com/freelearning-claim/19350/21478
 	//resp, _ := client.Get("https://www.packtpub.com/freelearning-claim/25854/21478")
-	client.CheckRedirect(req, res)
-	fmt.Println(resp.StatusCode)
 
 	// client.Head("https://www.packtpub.com/freelearning-claim/25854/21478")
 	// client.PostForm("https://www.packtpub.com/freelearning-claim/25854/21478", userinfo)
