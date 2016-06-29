@@ -37,6 +37,6 @@ func getBody() (*bytes.Buffer, error) {
 
 func main() {
 	body, _ := getBody()
-	freeBookURL := getfreeBookURL(body)
+	freeBookURL := getfreeBookURL(body.String())
 	fmt.Println(freeBookURL)
 }
