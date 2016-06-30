@@ -1,22 +1,26 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/http/cookiejar"
+	"net/url"
 	"os"
 	"regexp"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
 const (
-	URLBase = "https://www.packtpub.com/"
-	URLFree = "https://www.packtpub.com/packt/offers/free-learning"
+	packtPubBaseURL = "https://www.packtpub.com/"
+	packtPubFreeURL = "https://www.packtpub.com/packt/offers/free-learning"
 )
 
 // getBody is get []byte body
-func getBody() ([]byte, error) {
+func getBody() (*bytes.Buffer, error) {
 	resp, err := http.Get(packtPubBaseURL)
 	if err != nil {
 		return nil, err
@@ -26,21 +30,22 @@ func getBody() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+	buf := bytes.NewBuffer(body)
+	return buf, nil
 }
 
-// GetURL get Free Book URL
-func GetURL() (retUrl string, retErr error) {
+// GetFreeBookURL 은 책구매하는 주소
+func GetFreeBookURL() (url string, err error) {
 	fmt.Println("책주소를 얻어오는 중입니다.")
-	doc, err := goquery.NewDocument(URLFree)
+	doc, err := goquery.NewDocument(packtPubFreeURL)
 	if err != nil {
 		return "", err
 	}
 	doc.Find("a.twelve-days-claim").Each(func(i int, s *goquery.Selection) {
 		node := s.First()
-		retUrl, _ = node.Attr("href")
+		url, _ = node.Attr("href")
 	})
-	return retUrl, nil
+	return url, err
 }
 
 func inputInfo() (string, string) {
@@ -58,52 +63,33 @@ func inputInfo() (string, string) {
 	return email, password
 }
 
-//getBook is getBook via cookie
-func getBook(email, passworld) {
+func Auth(email string, password string, FreeBookURL string) {
+	cookieJar, _ := cookiejar.New(nil)
+	client := &http.Client{Jar: cookieJar}
 
+	userinfo := url.Values{}
+	userinfo.Add("email", email)
+	userinfo.Add("password", password)
+	userinfo.Add("op", "Login")
+	userinfo.Add("form_id", "packt_user_login_form")
+
+	req, _ := http.NewRequest("POST", packtPubBaseURL, strings.NewReader(userinfo.Encode()))
+	req.Header.Add("User-Agent", "Mozilla/5.0")
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, _ := client.Do(req)
+	fmt.Println(res.Status, client.Jar)
+
+	res, _ = client.Get(FreeBookURL)
+	fmt.Println(res.Status, client.Jar)
+	fmt.Println("책 구매하기 성공")
 }
+
 func main() {
-	// get url -> input email, password, login
 	email, password := inputInfo()
+	getFreeBookURL, _ := GetFreeBookURL()
+	getFreeBookURL = packtPubBaseURL + getFreeBookURL
+	fmt.Println(email, password, getFreeBookURL)
 
-	fmt.Println(email, password)
-
-	// url, _ := GetURL()
-	// fmt.Println(url)
-
-	// // Parse + String preserve the original encoding.
-	// resp, err := http.Get("http://www.packtpub.com/packt/offers/free-learning")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// // bytes, err := ioutil.ReadAll(resp.Body)
-	// // fmt.Println(string(bytes))
-	// defer resp.Body.Close()
-	// links := All(resp.Body)
-	// for _, link := range links {
-	// 	fmt.Println(link)
-	// }
+	Auth(email, password, getFreeBookURL)
 }
-
-/*
-func main() {
-	// Sending a literal '%' in an HTTP request's Path
-	req := &http.Request{
-		Method: "GET",
-		Host:   "www.packtpub.com/packt/offers/free-learning", // takes precedence over URL.Host
-		URL: &url.URL{
-			Host:   "ignored",
-			Scheme: "https",
-			Opaque: "/%2f/",
-		},
-		Header: http.Header{
-			"User-Agent": {"godoc-example/0.1"},
-		},
-	}
-	out, err := httputil.DumpRequestOut(req, true)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(strings.Replace(string(out), "\r", "", -1))
-}
-*/
