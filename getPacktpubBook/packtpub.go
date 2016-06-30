@@ -78,11 +78,14 @@ func Auth(email string, password string, FreeBookURL string) {
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
 	res, _ := client.Do(req)
-	fmt.Println(res.Status, client.Jar)
+	if res.StatusCode == 200 {
+		fmt.Println("Login 성공")
+	}
 
 	res, _ = client.Get(FreeBookURL)
-	fmt.Println(res.Status, client.Jar)
-	fmt.Println("책 구매하기 성공")
+	if res.StatusCode == 200 {
+		fmt.Println("책 구매하기 성공")
+	}
 }
 
 func main() {
