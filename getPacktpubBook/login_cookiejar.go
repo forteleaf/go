@@ -18,8 +18,8 @@ func main() {
 	client := &http.Client{Jar: cookieJar}
 
 	userinfo := url.Values{}
-	userinfo.Add("email", "forteleaf@gmail.com")
-	userinfo.Add("password", "shuria40")
+	userinfo.Add("email", "")
+	userinfo.Add("password", "")
 	userinfo.Add("op", "Login")
 	userinfo.Add("form_id", "packt_user_login_form")
 
