@@ -92,7 +92,6 @@ func main() {
 	email, password := inputInfo()
 	getFreeBookURL, _ := GetFreeBookURL()
 	getFreeBookURL = packtPubBaseURL + getFreeBookURL
-	fmt.Println(email, password, getFreeBookURL)
 
 	Auth(email, password, getFreeBookURL)
 }
