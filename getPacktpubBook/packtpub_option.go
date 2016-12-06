@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	packtPubBaseURL = "https://www.packtpub.com/"
+	packtPubBaseURL = "https://www.packtpub.com"
 	packtPubFreeURL = "https://www.packtpub.com/packt/offers/free-learning"
 )
 
@@ -146,6 +146,7 @@ func main() {
 		fmt.Println("not exist email, password\nprogram exit")
 		os.Exit(0)
 	}
+	// check today URL file
 	checkPacktpubConfig()
 
 	addr, err := readConfig()
