@@ -1,0 +1,135 @@
+<html lang="kr">
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <script data-cfasync="false" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <!--  Angular Theme를 적용하기-->
+   <title>상업촬영 신청서</title>
+</head>
+
+<body>
+   <form id="foo">
+      <div class="container">
+        <div class="panel">
+         <label for="담당자"><input id="담당자" name="담당자" type="text" value=""></label>
+         <label for="담당자 연락처"><input id="담당자 연락처" name="담당자 연락처" type="text" value=""></label>
+         <label for="담당자 이메일"><input id="담당자 이메일" name="담당자 이메일" type="email" value=""></label>
+      </div>
+      <div>
+         촬영제목
+         <label for="촬영제목">촬영제목:</label><br/>
+         <textarea id="촬영제목" name="촬영제목" cols="40"></textarea>
+      </div>
+      <div>
+         촬영분류
+         <label class="radio-inline" for="취재"><input id="취재" name="촬영분류" type="radio" value="취재">취재</label>
+         <label class="radio-inline" for="영화"><input id="영화" name="촬영분류" type="radio" value="영화">영화</label>
+         <label class="radio-inline" for="뮤직비디오"><input id="뮤직비디오" name="촬영분류" type="radio" value="뮤직비디오">뮤직비디오</label>
+         <label class="radio-inline" for="드라마"><input id="드라마" name="촬영분류" type="radio" value="드라마">드라마</label>
+         <label class="radio-inline" for="영상물"><input id="영상물" name="촬영분류" type="radio" value="영상물">영상물</label>
+         <label class="radio-inline" for="정사진"><input id="정사진" name="촬영분류" type="radio" value="정사진">정사진</label>
+         <label class="radio-inline" for="기타"><input id="기타" name="촬영분류" type="radio" value="기타">기타</label>
+      </div>
+      <div>
+         촬영업체
+         <label for="촬영업체"><input id="촬영업체" name="촬영업체" type="text" value=""></label>
+         <label for="제작사명"><input id="제작사명" name="제작사명" type="text" value=""></label>
+         <label for="주소"><input id="주소" name="주소" type="text" value=""></label>
+         <label for="제작사 연락처"><input id="제작사 연락처" name="제작사 연락처" type="text" value=""></label>
+      </div>
+      <div>
+         <label for="촬영일"><input id="촬영일" name="촬영일" type="date" min="2010-10-02" max="2040-12-31"value=""></label>
+      </div>
+      <div>
+         찰영시간 촬영시간(1300~1400)
+         <label for="촬영시간"><input id="촬영시간" name="촬영시간" type="text" value=""></label>
+      </div>
+      <div>
+         <label for="촬영장소"><input id="촬영장소" name="촬영장소" type="text" value=""></label> 촬영공간
+      </div>
+      <div>
+         <label for="촬영내용"><input id="촬영내용" name="촬영내용" type="text" value=""></label> 촬용내용
+      </div>
+      <div>
+         <label for="계약금"><input id="계약금" name="계약금" type="text" value=""></label> 특이사항 계약금
+      </div>
+      <!--
+        <p><label for="name">Name:</label>
+            <input id="name" name="name" type="text" value="" /></p>
+        <p><label for="comment">Comment:</label><br/>
+            <textarea id="comment" name="comment" cols="40"></textarea></p>
+        <p><label for="checkin">일련번호</label>
+            <input id="일련번호" name="일련번호" value="" /></p> -->
+      <label for="접수일"><input type="text" hidden="enable" id="접수일" name="접수일"></label>
+      <p id="result"></p>
+      <input type="submit" value="Send" />
+    </div>
+   </form>
+   <script data-cfasync="false" type="text/javascript">
+      // jQuery(document).ready(function($) {
+      $(function() {
+         // 접수일 입력
+         var d = new Date();
+         var todaydate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+         $("#접수일").val(todaydate);
+         // variable to hold request
+         var request;
+         // bind to the submit event of our form
+         $("#foo").submit(function(event) {
+            // abort any pending request
+            if (request) {
+               request.abort();
+            }
+            // setup some local variables
+            var $form = $(this);
+            // let's select and cache all the fields
+            var $inputs = $form.find("input, select, button, textarea");
+            // serialize the data in the form
+            var serializedData = $form.serialize();
+            // let's disable the inputs for the duration of the ajax request
+            // Note: we disable elements AFTER the form data has been serialized.
+            // Disabled form elements will not be serialized.
+            $inputs.prop("disabled", true);
+            $('#result').text('Sending data...');
+            // fire off the request to /form.php
+            request = $.ajax({
+               // url: "https://script.google.com/macros/s/AKfycbzV--xTooSkBLufMs4AnrCTdwZxVNtycTE4JNtaCze2UijXAg8/exec", // works
+               url: "https://script.google.com/macros/s/AKfycbwCMR2Qw0MVD_E8ceOdCFf3-hj9gw3OMU2atKej8e6oQSfoipwA/exec", // clone
+               type: "post",
+               data: serializedData
+            });
+            // callback handler that will be called on success
+            request.done(function(response, textStatus, jqXHR) {
+               // log a message to the console
+               console.log(response, textStatus, jqXHR);
+               $('#result').html('<a href="https://docs.google.com/spreadsheets/d/10tt64TiALYhPMqR2fh9JzkuhxW7oC0rXXPb_pmJ7HAY/edit?usp=sharing" target="_blank">Success - see Google Sheet</a>');
+               console.log("Hooray, it worked!");
+            });
+            // callback handler that will be called on failure
+            request.fail(function(jqXHR, textStatus, errorThrown) {
+               // log the error to the console
+               console.error(
+                  "The following error occured: " +
+                  textStatus, errorThrown
+               );
+            });
+            // callback handler that will be called regardless
+            // if the request failed or succeeded
+            request.always(function() {
+               // reenable the inputs
+               $inputs.prop("disabled", false);
+            });
+            // prevent default posting of form
+            event.preventDefault();
+         });
+      });
+   </script>
+</body>
+
+</html>

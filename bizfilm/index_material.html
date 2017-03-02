@@ -1,0 +1,372 @@
+<html lang="kr">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps."> -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+   <title>디자인</title>
+
+   <!-- Add to homescreen for Chrome on Android -->
+   <meta name="mobile-web-app-capable" content="yes">
+   <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+   <!-- Add to homescreen for Safari on iOS -->
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+   <!-- <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png"> -->
+
+   <!-- Tile icon for Win8 (144x144 + tile color) -->
+   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+   <meta name="msapplication-TileColor" content="#3372DF">
+
+   <link rel="shortcut icon" href="images/favicon.png">
+
+   <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+   <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"> -->
+   <script data-cfasync="false" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.teal-red.min.css">
+
+   <link rel="stylesheet" href="styles.css">
+
+   <style>
+      #view-source {
+         position: fixed;
+         display: block;
+         right: 0;
+         bottom: 0;
+         margin-right: 40px;
+         margin-bottom: 40px;
+         z-index: 900;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+      <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+         <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">상업촬영 디자인 적용</span>
+            <div class="mdl-layout-spacer"></div>
+            <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+              <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                <i class="material-icons">search</i>
+              </label>
+               <div class="mdl-textfield__expandable-holder">
+                  <input class="mdl-textfield__input" type="text" id="search">
+                  <label class="mdl-textfield__label" for="search">Enter your query...</label>
+               </div>
+            </div> -->
+         </div>
+      </header>
+      <form id="foo">
+         <div>
+            <div>
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="담당자" name="담당자">
+                  <label class="mdl-textfield__label" for="담당자">담당자 이름...</label>
+               </div>
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="담당자 연락처" name="담당자 연락처">
+                  <label class="mdl-textfield__label" for="담당자 연락처">담당자 연락처</label>
+               </div>
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="email" id="담당자 이메일" name="담당자 이메일">
+                  <label class="mdl-textfield__label" for="담당자 이메일">담당자 이메일</label>
+                  <span class="mdl-textfield__error">제대로 된 이메일을 넣으세요</span>
+               </div>
+               <!-- <label  class="mdl-textfield_label" for="담당자"><input  class="mdl-textfield__input" id="담당자" name="담당자" type="text" value=""></label> -->
+            </div>
+            <div>
+               촬영제목
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="촬영제목">
+                  <label class="mdl-textfield__label" for="촬영제목">촬영제목...</label>
+               </div>
+            </div>
+            <div>
+               촬영분류
+           <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="취재">
+              <input type="radio" id="취재" class="mdl-radio__button" name="촬영분류" value="취재" required>
+              <span class="mdl-radio__label">취재</span>
+            </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="영화">
+              <input type="radio" id="영화" class="mdl-radio__button" name="촬영분류" value="영화">
+              <span class="mdl-radio__label">영화</span>
+            </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="뮤직비디오">
+              <input type="radio" id="뮤직비디오" class="mdl-radio__button" name="촬영분류" value="뮤직비디오">
+              <span class="mdl-radio__label">뮤직비디오</span>
+            </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="드라마">
+              <input type="radio" id="드라마" class="mdl-radio__button" name="촬영분류" value="드라마">
+              <span class="mdl-radio__label">드라마</span>
+            </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="영상물">
+              <input type="radio" id="영상물" class="mdl-radio__button" name="촬영분류" value="영상물">
+              <span class="mdl-radio__label">영상물</span>
+            </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="정사진">
+              <input type="radio" id="정사진" class="mdl-radio__button" name="촬영분류" value="정사진">
+              <span class="mdl-radio__label">정사진</span>
+            </label>
+               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="기타">
+              <input type="radio" id="기타" class="mdl-radio__button" name="촬영분류" value="기타">
+              <span class="mdl-radio__label">기타</span>
+            </label>
+            </div>
+            <div>
+               촬영업체
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="제작사명"name="제작사명">
+                  <label class="mdl-textfield__label" for="제작사명">제작사명...</label>
+               </div>
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="주소"name="주소">
+                  <label class="mdl-textfield__label" for="주소">주소...</label>
+               </div>
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="제작사 연락처" name="제작사 연락처" pattern="\d{2,3}-\d{3,4}-\d{4}" >
+                  <label class="mdl-textfield__label" for="주소">제작사 연락처를 입력해 주세요. (ex. 02-123-4567)</label>
+                  <span class="mdl-textfield__error"> 틀린 연락처 형식 입니다.</span>
+               </div>
+
+            </div>
+            <div>
+               <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="date" id="촬영일" name="촬영일" min="2010-10-02" max="2040-12-31" required>
+                  <label class="mdl-textfield__label" for="촬영일"></label>
+               </div>
+            </div>
+            <div>
+               찰영시간 촬영시간(1300~1400)
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="촬영시간" name="촬영시간" pattern="[0-3][0-9]:[0-6][0-9]~[0-3][0-9]:[0-6][0-9]">
+                  <label class="mdl-textfield__label" for="촬영시간">촬영시간 (ex.11:00~25:00)</label>
+                  <span class="mdl-textfield__error"> 틀린 형식 입니다.</span>
+               </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+               <input class="mdl-textfield__input" type="text" id="촬영장소" name="촬영장소">
+               <label class="mdl-textfield__label" for="촬영장소">촬영장소</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+               <input class="mdl-textfield__input" type="text" id="촬영내용" name="촬영내용">
+               <label class="mdl-textfield__label" for="촬영내용">촬영내용</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+               <input class="mdl-textfield__input" type="number" id="계약금" name="계약금" step="10000" min="0">
+               <label class="mdl-textfield__label" for="계약금">계약금</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+               <input class="mdl-textfield__input" type="number" id="기부금" name="기부금" value="">
+               <label class="mdl-textfield__label" for="기부금">기부금</label>
+            </div>
+            <!--
+           <p><label for="name">Name:</label>
+               <input id="name" name="name" type="text" value="" /></p>
+           <p><label for="comment">Comment:</label><br/>
+               <textarea id="comment" name="comment" cols="40"></textarea></p>
+           <p><label for="checkin">일련번호</label>
+               <input id="일련번호" name="일련번호" value="" /></p> -->
+            <label for="접수일"><input type="text" hidden="enable" id="접수일" name="접수일"></label>
+            <p id="result"></p>
+            <!-- Accent-colored raised button with ripple -->
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+              제출하기
+            </button>
+<!-- <input type="submit" value="Send"> -->
+         </div>
+      </form>
+      <script data-cfasync="false" type="text/javascript">
+         // jQuery(document).ready(function($) {
+         $(function() {
+            // 접수일 입력
+            var d = new Date();
+            var todaydate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            $("#접수일").val(todaydate);
+
+            // 기부금 자동 계산
+            $("#계약금").change(function(){
+              $("#기부금").val($("#계약금").val()*0.15);
+              $("#기부금").addClass("is-focused is-dirty");
+            });
+
+            // variable to hold request
+            var request;
+            // bind to the submit event of our form
+            $("#foo").submit(function(event) {
+               // abort any pending request
+               if (request) {
+                  request.abort();
+               }
+               // setup some local variables
+               var $form = $(this);
+               // let's select and cache all the fields
+               var $inputs = $form.find("input, select, button, textarea");
+               // serialize the data in the form
+               var serializedData = $form.serialize();
+               // let's disable the inputs for the duration of the ajax request
+               // Note: we disable elements AFTER the form data has been serialized.
+               // Disabled form elements will not be serialized.
+               $inputs.prop("disabled", true);
+               $('#result').text('Sending data...');
+               // fire off the request to /form.php
+               request = $.ajax({
+                  // url: "https://script.google.com/macros/s/AKfycbzV--xTooSkBLufMs4AnrCTdwZxVNtycTE4JNtaCze2UijXAg8/exec", // works
+                  url: "https://script.google.com/macros/s/AKfycbwCMR2Qw0MVD_E8ceOdCFf3-hj9gw3OMU2atKej8e6oQSfoipwA/exec", // clone
+                  type: "post",
+                  data: serializedData
+               });
+               // callback handler that will be called on success
+               request.done(function(response, textStatus, jqXHR) {
+                  // log a message to the console
+                  console.log(response, textStatus, jqXHR);
+                  $('#result').html('<a href="https://docs.google.com/spreadsheets/d/10tt64TiALYhPMqR2fh9JzkuhxW7oC0rXXPb_pmJ7HAY/edit?usp=sharing" target="_blank">Success - see Google Sheet</a>');
+                  console.log("Hooray, it worked!");
+               });
+               // callback handler that will be called on failure
+               request.fail(function(jqXHR, textStatus, errorThrown) {
+                  // log the error to the console
+                  console.error(
+                     "The following error occured: " +
+                     textStatus, errorThrown
+                  );
+               });
+               // callback handler that will be called regardless
+               // if the request failed or succeeded
+               request.always(function() {
+                  // reenable the inputs
+                  $inputs.prop("disabled", false);
+               });
+               // prevent default posting of form
+               event.preventDefault();
+            });
+         });
+      </script>
+
+      <div class="mdl-card mdl-cell mdl-cell--12-col">
+         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="sample3">
+            <label class="mdl-textfield__label" for="sample3">Text...</label>
+         </div>
+         <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+            <h4 class="mdl-cell mdl-cell--12-col">Details</h4>
+            <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+               <div class="section__circle-container__circle mdl-color--primary"></div>
+            </div>
+            <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+               <h5>Lorem ipsum dolor sit amet</h5> Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
+            </div>
+            <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+               <div class="section__circle-container__circle mdl-color--primary"></div>
+            </div>
+            <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+               <h5>Lorem ipsum dolor sit amet</h5> Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
+            </div>
+            <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+               <div class="section__circle-container__circle mdl-color--primary"></div>
+            </div>
+            <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+               <h5>Lorem ipsum dolor sit amet</h5> Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
+            </div>
+         </div>
+
+         <div class="mdl-card__actions">
+            <a href="#" class="mdl-button">Read our features</a>
+         </div>
+      </div>
+      <div class="demo-ribbon"></div>
+      <main class="demo-main mdl-layout__content">
+         <div class="demo-container mdl-grid">
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+               <div class="demo-crumbs mdl-color-text--grey-500">
+                  Google &gt; Material Design Lite &gt; How to install MDL
+               </div>
+               <h3>How to install MDL</h3>
+               <p>
+                  Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud
+                  Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua
+                  elit.
+               </p>
+               <p>
+                  Commodo nisi non consectetur voluptate incididunt mollit duis dolore amet amet tempor exercitation. Qui amet aute ea aute id ad aliquip proident. Irure duis qui labore deserunt enim in quis nisi sint consequat aliqua. Ex proident labore et laborum tempor
+                  fugiat sint magna veniam minim. Nulla dolor labore adipisicing in enim mollit laboris fugiat eu. Aliquip minim cillum ullamco voluptate non dolore non ex duis fugiat duis ad. Deserunt cillum ad et nisi amet non voluptate culpa qui do.
+                  Labore ullamco et minim proident est laborum mollit ad labore deserunt ut irure dolore. Reprehenderit ad ad irure ut irure qui est eu velit eu excepteur adipisicing culpa. Laborum cupidatat ullamco eu duis anim reprehenderit proident
+                  aute ad consectetur eiusmod.
+               </p>
+               <p>
+                  Tempor tempor aliqua in commodo cillum Lorem magna dolore proident Lorem. Esse ad consequat est excepteur irure eu irure quis aliqua qui. Do mollit esse veniam excepteur ut veniam anim minim dolore sit commodo consequat duis commodo. Sunt dolor reprehenderit
+                  ipsum minim eiusmod eu consectetur anim excepteur eiusmod. Duis excepteur anim dolor sit enim veniam deserunt anim adipisicing Lorem elit. Cillum sunt do consequat elit laboris nisi consectetur.
+               </p>
+               <h3>Basic MDL Usage</h3>
+               <p>
+                  Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud
+                  Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua
+                  elit.
+               </p>
+               <p>
+                  Commodo nisi non consectetur voluptate incididunt mollit duis dolore amet amet tempor exercitation. Qui amet aute ea aute id ad aliquip proident. Irure duis qui labore deserunt enim in quis nisi sint consequat aliqua. Ex proident labore et laborum tempor
+                  fugiat sint magna veniam minim. Nulla dolor labore adipisicing in enim mollit laboris fugiat eu. Aliquip minim cillum ullamco voluptate non dolore non ex duis fugiat duis ad. Deserunt cillum ad et nisi amet non voluptate culpa qui do.
+                  Labore ullamco et minim proident est laborum mollit ad labore deserunt ut irure dolore. Reprehenderit ad ad irure ut irure qui est eu velit eu excepteur adipisicing culpa. Laborum cupidatat ullamco eu duis anim reprehenderit proident
+                  aute ad consectetur eiusmod.
+               </p>
+               <p>
+                  Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud
+                  Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua
+                  elit.
+               </p>
+               <p>
+                  Commodo nisi non consectetur voluptate incididunt mollit duis dolore amet amet tempor exercitation. Qui amet aute ea aute id ad aliquip proident. Irure duis qui labore deserunt enim in quis nisi sint consequat aliqua. Ex proident labore et laborum tempor
+                  fugiat sint magna veniam minim. Nulla dolor labore adipisicing in enim mollit laboris fugiat eu. Aliquip minim cillum ullamco voluptate non dolore non ex duis fugiat duis ad. Deserunt cillum ad et nisi amet non voluptate culpa qui do.
+                  Labore ullamco et minim proident est laborum mollit ad labore deserunt ut irure dolore. Reprehenderit ad ad irure ut irure qui est eu velit eu excepteur adipisicing culpa. Laborum cupidatat ullamco eu duis anim reprehenderit proident
+                  aute ad consectetur eiusmod.
+               </p>
+               <p>
+                  Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud
+                  Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua
+                  elit.
+               </p>
+               <p>
+                  Commodo nisi non consectetur voluptate incididunt mollit duis dolore amet amet tempor exercitation. Qui amet aute ea aute id ad aliquip proident. Irure duis qui labore deserunt enim in quis nisi sint consequat aliqua. Ex proident labore et laborum tempor
+                  fugiat sint magna veniam minim. Nulla dolor labore adipisicing in enim mollit laboris fugiat eu. Aliquip minim cillum ullamco voluptate non dolore non ex duis fugiat duis ad. Deserunt cillum ad et nisi amet non voluptate culpa qui do.
+                  Labore ullamco et minim proident est laborum mollit ad labore deserunt ut irure dolore. Reprehenderit ad ad irure ut irure qui est eu velit eu excepteur adipisicing culpa. Laborum cupidatat ullamco eu duis anim reprehenderit proident
+                  aute ad consectetur eiusmod.
+               </p>
+               <p>
+                  Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud
+                  Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua
+                  elit.
+               </p>
+               <p>
+                  Commodo nisi non consectetur voluptate incididunt mollit duis dolore amet amet tempor exercitation. Qui amet aute ea aute id ad aliquip proident. Irure duis qui labore deserunt enim in quis nisi sint consequat aliqua. Ex proident labore et laborum tempor
+                  fugiat sint magna veniam minim. Nulla dolor labore adipisicing in enim mollit laboris fugiat eu. Aliquip minim cillum ullamco voluptate non dolore non ex duis fugiat duis ad. Deserunt cillum ad et nisi amet non voluptate culpa qui do.
+                  Labore ullamco et minim proident est laborum mollit ad labore deserunt ut irure dolore. Reprehenderit ad ad irure ut irure qui est eu velit eu excepteur adipisicing culpa. Laborum cupidatat ullamco eu duis anim reprehenderit proident
+                  aute ad consectetur eiusmod.
+               </p>
+            </div>
+         </div>
+
+         <footer class="demo-footer mdl-mini-footer">
+            <div class="mdl-mini-footer--left-section">
+               <ul class="mdl-mini-footer--link-list">
+                  <li><a href="#">Help</a></li>
+                  <li><a href="#">Privacy and Terms</a></li>
+                  <li><a href="#">User Agreement</a></li>
+               </ul>
+            </div>
+         </footer>
+      </main>
+   </div>
+   <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/article/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
+</body>
+
+</html>

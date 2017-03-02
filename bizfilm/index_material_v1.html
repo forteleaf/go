@@ -1,0 +1,359 @@
+<html lang="kr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps."> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>디자인</title>
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+  <!-- <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png"> -->
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <link rel="shortcut icon" href="images/favicon.png">
+  <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+  <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <script data-cfasync="false" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.teal-red.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="js/jSignature.min.js"></script>
+  <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    
+    .extrawideday {
+      width: 20px;
+    }
+    /* 동의서 사인 부분의 월, 일, inputtext 길이*/
+    
+    .extrawide {
+      width: 80px;
+    }
+    /* 서명 부분의 div 크기*/
+    
+    #signature {
+      width: 300px;
+    }
+  </style>
+</head>
+
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+      </div>
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        <h3>헤이리 예술마을 상업촬영 신청</h3>
+      </div>
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+      </div>
+      <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+        <a href="#overview" class="mdl-layout__tab">Overview</a>
+        <a href="#resume" class="mdl-layout__tab is-active">신청서</a>
+      </div>
+    </header>
+    <script data-cfasync="false" type="text/javascript">
+         // jQuery(document).ready(function($) {
+         $(function() {
+           // 서명란
+            $("#signature").jSignature();
+            $("#btn_resetsign").bind('click', function (e) {
+                $("#signature").jSignature('reset');
+            });
+            // 접수일 입력
+            var d = new Date();
+            var todaydate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            $("#접수일").val(todaydate);
+
+            // 기부금 자동 계산
+            $("#계약금").change(function(){
+              $("#기부금").val($("#계약금").val()*0.15);
+              $("#기부금").addClass("is-focused is-dirty");
+            });
+
+            // variable to hold request
+            var request;
+            // bind to the submit event of our form
+            $("#foo").submit(function(event) {
+               // abort any pending request
+               if (request) {
+                  request.abort();
+               }
+               // setup some local variables
+               var $form = $(this);
+               // let's select and cache all the fields
+               var $inputs = $form.find("input, select, button, textarea");
+               // serialize the data in the form
+               var serializedData = $form.serialize();
+               // let's disable the inputs for the duration of the ajax request
+               // Note: we disable elements AFTER the form data has been serialized.
+               // Disabled form elements will not be serialized.
+               $inputs.prop("disabled", true);
+               $('#result').text('Sending data...');
+               // fire off the request to /form.php
+               request = $.ajax({
+                  // url: "https://script.google.com/macros/s/AKfycbzV--xTooSkBLufMs4AnrCTdwZxVNtycTE4JNtaCze2UijXAg8/exec", // works
+                  url: "https://script.google.com/macros/s/AKfycbwCMR2Qw0MVD_E8ceOdCFf3-hj9gw3OMU2atKej8e6oQSfoipwA/exec", // clone
+                  type: "post",
+                  data: serializedData
+               });
+               // callback handler that will be called on success
+               request.done(function(response, textStatus, jqXHR) {
+                  // log a message to the console
+                  console.log(response, textStatus, jqXHR);
+                  $('#result').html('<a href="https://docs.google.com/spreadsheets/d/10tt64TiALYhPMqR2fh9JzkuhxW7oC0rXXPb_pmJ7HAY/edit?usp=sharing" target="_blank">Success - see Google Sheet</a>');
+                  console.log("Hooray, it worked!");
+               });
+               // callback handler that will be called on failure
+               request.fail(function(jqXHR, textStatus, errorThrown) {
+                  // log the error to the console
+                  console.error(
+                     "The following error occured: " +
+                     textStatus, errorThrown
+                  );
+               });
+               // callback handler that will be called regardless
+               // if the request failed or succeeded
+               request.always(function() {
+                  // reenable the inputs
+                  $inputs.prop("disabled", false);
+               });
+               // prevent default posting of form
+               event.preventDefault();
+            });
+         });
+      </script>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel" id="overview">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col">헤이리 예술마을 촬영 안내</h4>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone" style="border:1px solid;padding:10px">
+                  <h3>1. 촬영안내</h3>
+                  <p>헤이리 예술마을의 내․외부 공간을 배경으로 진행되는 상업촬영 및 취재는 헤이리 사무국과 협의를 거쳐야 가능합니다.</p>
+                  <h4>촬영의 범위</h4>
+                  <ul>
+                    <li> 헤이리 취재 방송(지면 포함)</li>
+                    <li>지상파와 케이블 매체의 모든 영상물</li>
+                    <li>영화,뮤직비디오</li>
+                    <li>TV CF 광고(시안촬영 포함)</li>
+                    <li>지면광고</li>
+                    <li>인터넷 쇼핑몰</li>
+                    <li>기타(상호 협의에 의한 모든 프로그램)</li>
+                  </ul>
+                  <h3>2. 촬영 시 유의사항</h3>
+                  <p> 1) 헤이리 예술마을에서 진행하는 모든 촬영은 사무국에 촬영 신청서 접수 후 진행하셔야 합니다.</p>
+                  <h4>촬영 진행순서</h4>
+                  <b>촬영문의 → 촬영신청서 접수 → 심사 및 허가 → 촬영료, 발전기금 납부 → 촬영 진행</b>
+                  <p>
+                    <u>(※촬영신청서 접수시에 공간측과 체결된 촬영내용, 일시, 공간, 촬영료, 참여인원, 조명사용여부 등이 기재된 계약서 사본을 제출하셔야 합니다.)</u>
+                  </p>
+                  <p> 2) 주말에는 헤이리 예술마을 전역에서 촬영을 금합니다. 또한 대규모 옥외 조명이 사용되는 야간 촬영일 경우 주변공간에 사전 협의 후 가능합니다.</p>
+                  <p> 3) 촬영은 약정된 공간에서만 하셔야 하며, 사전 등록된 인원 외의 입장은 불가합니다. </p>
+                  <p> 4) 주변 공간 및 거주회원들에게 매연, 흡연, 소음 등으로 인한 피해가 없도록 유의 바랍니다. </p>
+                  <p> 5) 장소 사용료는 촬영 전일까지 온라인 계좌로 입금하셔야 합니다. </p>
+                  <ul>
+                    <li><b>비용 안내 : 촬영장소 사용료 + 헤이리 예술마을 발전기금 15% </b></li>
+                    <li><b>비용 지불 : 장소 사용료와 발전기금을 별도 입금 (헤이리는 비영리단체로 ‘영수증’이 발급됩니다)</b></li>
+                  </ul>
+                  <p> 6) 광고 제작사는 사전에 촬영지(건축물)의 소유 및 저작권 관계를 사무국에 확인하여야 하며, 소유자(건물주)와 저작권자(건축가) 각각의 합의 후에 촬영을 진행하여야 합니다.</p>
+                  <p> 7) 그 외 유의사항은 각 공간의 운영원칙에 따라 추가 될 수 있습니다.</p>
+                </div>
+                <div style="margin:auto">
+                  <center>
+                    <h4>위 유의사항을 충분히 숙지하였으며, 촬영 시 이행하도록 하겠습니다.</h4>
+                    <p>(※하단의 서명란에 반드시 서명하여 주시기 바랍니다.)</p>
+                    <div>
+                      <h4>2016년
+                        <div class="mdl-textfield mdl-js-textfield extrawideday">
+                          <input class="mdl-textfield__input" type="number" id="월">
+                          <label class="mdl-textfield__label" for="월"></label>
+                        </div>
+                        월
+                        <div class="mdl-textfield mdl-js-textfield extrawideday">
+                          <input class="mdl-textfield__input" type="number" id="일">
+                          <label class="mdl-textfield__label" for="일"></label>
+                        </div>
+                        일 서명
+                        <div class="mdl-textfield mdl-js-textfield extrawide">
+                          <input class="mdl-textfield__input" type="text" id="이름">
+                          <label class="mdl-textfield__label" for="이름"></label>
+                        </div>
+                        (인)
+                        <div id="signature" class="mdl-textfield mdl-js-textfield" style="width:200px;"></div>
+                        <button id="btn_resetsign" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                          다시서명</button>
+                      </h4>
+                    </div>
+                </div>
+                </center>
+              </div>
+              <!-- <div class="mdl-card__actions">
+            <a href="#" class="mdl-button">Read our features</a>
+          </div> -->
+            </div>
+            <!-- <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn2">
+       <i class="material-icons">more_vert</i>
+     </button>
+     <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn2">
+     <li class="mdl-menu__item">Lorem</li>
+     <li class="mdl-menu__item" disabled>Ipsum</li>
+     <li class="mdl-menu__item">Dolor</li>
+   </ul> -->
+          </section>
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="resume">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text">
+                <h4>신청서 작성</h4>
+                <form id="foo">
+                  <div>
+                    <div>
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="담당자" name="담당자">
+                        <label class="mdl-textfield__label" for="담당자">담당자 이름...</label>
+                      </div>
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="담당자 연락처" name="담당자 연락처">
+                        <label class="mdl-textfield__label" for="담당자 연락처">담당자 연락처</label>
+                      </div>
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="email" id="담당자 이메일" name="담당자 이메일">
+                        <label class="mdl-textfield__label" for="담당자 이메일">담당자 이메일</label>
+                        <span class="mdl-textfield__error">제대로 된 이메일을 넣으세요</span>
+                      </div>
+                      <!-- <label  class="mdl-textfield_label" for="담당자"><input  class="mdl-textfield__input" id="담당자" name="담당자" type="text" value=""></label> -->
+                    </div>
+                    <div>
+                      촬영제목
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="촬영제목">
+                        <label class="mdl-textfield__label" for="촬영제목">촬영제목...</label>
+                      </div>
+                    </div>
+                    <div>
+                      촬영분류
+                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="취재">
+                       <input type="radio" id="취재" class="mdl-radio__button" name="촬영분류" value="취재" required>
+                       <span class="mdl-radio__label">취재</span>
+                     </label>
+                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="영화">
+                       <input type="radio" id="영화" class="mdl-radio__button" name="촬영분류" value="영화">
+                       <span class="mdl-radio__label">영화</span>
+                     </label>
+                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="뮤직비디오">
+                       <input type="radio" id="뮤직비디오" class="mdl-radio__button" name="촬영분류" value="뮤직비디오">
+                       <span class="mdl-radio__label">뮤직비디오</span>
+                     </label>
+                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="드라마">
+                       <input type="radio" id="드라마" class="mdl-radio__button" name="촬영분류" value="드라마">
+                       <span class="mdl-radio__label">드라마</span>
+                     </label>
+                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="영상물">
+                       <input type="radio" id="영상물" class="mdl-radio__button" name="촬영분류" value="영상물">
+                       <span class="mdl-radio__label">영상물</span>
+                     </label>
+                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="정사진">
+                       <input type="radio" id="정사진" class="mdl-radio__button" name="촬영분류" value="정사진">
+                       <span class="mdl-radio__label">정사진</span>
+                     </label>
+                      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="기타">
+                       <input type="radio" id="기타" class="mdl-radio__button" name="촬영분류" value="기타">
+                       <span class="mdl-radio__label">기타</span>
+                     </label>
+                    </div>
+                    <div>
+                      촬영업체
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="제작사명" name="제작사명">
+                        <label class="mdl-textfield__label" for="제작사명">제작사명...</label>
+                      </div>
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="주소" name="주소">
+                        <label class="mdl-textfield__label" for="주소">주소...</label>
+                      </div>
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="제작사 연락처" name="제작사 연락처" pattern="\d{2,3}-\d{3,4}-\d{4}">
+                        <label class="mdl-textfield__label" for="주소">제작사 연락처를 입력해 주세요. (ex. 02-123-4567)</label>
+                        <span class="mdl-textfield__error"> 틀린 연락처 형식 입니다.</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="date" id="촬영일" name="촬영일" min="2010-10-02" max="2040-12-31" required>
+                        <label class="mdl-textfield__label" for="촬영일"></label>
+                      </div>
+                    </div>
+                    <div>
+                      찰영시간 촬영시간(1300~1400)
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="촬영시간" name="촬영시간" pattern="[0-3][0-9]:[0-6][0-9]~[0-3][0-9]:[0-6][0-9]">
+                        <label class="mdl-textfield__label" for="촬영시간">촬영시간 (ex.11:00~25:00)</label>
+                        <span class="mdl-textfield__error"> 틀린 형식 입니다.</span>
+                      </div>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="촬영장소" name="촬영장소">
+                      <label class="mdl-textfield__label" for="촬영장소">촬영장소</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="촬영내용" name="촬영내용">
+                      <label class="mdl-textfield__label" for="촬영내용">촬영내용</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="number" id="계약금" name="계약금" step="10000" min="0">
+                      <label class="mdl-textfield__label" for="계약금">계약금</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="number" id="기부금" name="기부금" value="">
+                      <label class="mdl-textfield__label" for="기부금">기부금</label>
+                    </div>
+                    <label for="접수일"><input type="text" hidden="enable" id="접수일" name="접수일"></label>
+                    <p id="result"></p>
+                    <!-- Accent-colored raised button with ripple -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                       제출하기
+                     </button>
+                    <!-- <input type="submit" value="Send"> -->
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+    </div>
+    <footer class="mdl-mega-footer">
+      <div class="mdl-mega-footer--bottom-section">
+        <ul class="mdl-mini-footer--link-list">
+          <li><a href="https://developers.google.com/web/starter-kit/">Web Starter Kit</a></li>
+          <li><a href="#">Help</a></li>
+          <li><a href="#">Privacy and Terms</a></li>
+        </ul>
+      </div>
+    </footer>
+    </main>
+  </div>
+  <!-- <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/article/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a> -->
+</body>
+
+</html>
