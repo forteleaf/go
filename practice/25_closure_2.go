@@ -12,4 +12,6 @@ func calc() func(x int) int {
 func main() {
 	f := calc()
 	fmt.Println(f(1))
+	// result
+	// 8
 }

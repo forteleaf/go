@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel='stylesheet'>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel='stylesheet'>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{{ $packturl := "https://www.packtpub.com" }} {{ range $k, $v := .Books}}
+<div class="col-sm-7">
+    <div class="panel">
+        <div class="col-sm-3">
+            <img src="{{$v.Thumbnail}}" />
+        </div>
+        <div class="col-sm-9">
+            <h4>{{$v.Name}}</h4>
+        </div>
+        <div class="panel-body">
+        {{if $v.Pdf }}
+            <a href="https://www.packtpub.com{{$v.Pdf}}">
+                <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-download-alt"> PDF</span></button>
+                    </a>
+        {{end}}
+        {{if $v.Epub }}
+            <a href="https://www.packtpub.com{{$v.Epub}}" download="{{$v.Name}}">
+                            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-download-alt"> ePub</span></button>
+                        </a>
+        {{end}}
+        {{if $v.Mobi }}
+            <a href="https://www.packtpub.com{{$v.Mobi}}">
+                            <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-download-alt"> Mobi</span></button>
+                        </a>
+        {{end}}
+        {{if $v.Codefiles }}
+            <a href="https://www.packtpub.com{{$v.Codefiles}}">
+                            <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-download-alt"> Codefiles</span></button>
+                        </a>
+        {{end}}
+
+        </div>
+    </div>
+</div>
+{{end}}
+</html>
