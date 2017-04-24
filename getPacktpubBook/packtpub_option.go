@@ -77,6 +77,7 @@ func Auth(email string, password string, FreeBookURL string) {
 	}
 
 	res, _ = client.Get(FreeBookURL)
+
 	if res.StatusCode == 200 {
 		fmt.Println("책 구매하기 성공")
 	} else {
